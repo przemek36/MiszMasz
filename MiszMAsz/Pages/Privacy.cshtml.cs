@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MiszMAsz.Pages
+namespace MiszMasz.Pages
 {
     public class PrivacyModel : PageModel
     {
