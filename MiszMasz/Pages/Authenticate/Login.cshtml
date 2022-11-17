@@ -1,0 +1,45 @@
+﻿@page
+@model MiszMasz.Pages.Authenticate.LoginModel
+@{  
+    ViewBag.Title = "Login";  
+}  
+  
+<form method="post"> 
+    <table>  
+        <tr>  
+            <td><label asp-for="LoginRequest.Username" class="control-label"></label></td>  
+            <td><label asp-for="LoginRequest.Password" class="control-label"></label></td>  
+        </tr>  
+        <tr>  
+            <td>  
+                <input asp-for="LoginRequest.Username" class="form-control" />
+            </td>  
+            <td>  
+                <input asp-for="LoginRequest.Password" class="form-control" TextMode="Password" /> 
+            </td>  
+        </tr>  
+        <tr>  
+            <td colspan="2">  
+                <input type="submit" />  
+            </td>  
+        </tr>
+        <tr>  
+            <td colspan="2">  
+                @if (@ViewBag.Errors != null)  
+                {  
+                    <div style="border: 1px solid red">  
+                        @ViewBag.Errors  
+                    </div>  
+                } 
+            </td>  
+        </tr>  
+        <tr>  
+            <td>  
+               Nie posiadasz konta? 
+            </td>  
+            <td>  
+                <a asp-page="/Authenticate/Register">Zarejestruj</a>
+            </td>  
+        </tr> 
+    </table>  
+</form>

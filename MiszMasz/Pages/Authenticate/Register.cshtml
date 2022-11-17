@@ -1,0 +1,46 @@
+﻿@page
+@model MiszMasz.Pages.Authenticate.RegisterModel
+@{  
+    ViewData["Title"] = "Register";  
+}  
+<form method="post"> 
+    <table>  
+        <tr>  
+            <td>
+                <label asp-for="RegisterRequest.Email" class="control-label"></label>
+            </td>
+            <td>
+                <label asp-for="RegisterRequest.Username" class="control-label"></label>
+            </td>  
+            <td>
+                <label asp-for="RegisterRequest.Password" class="control-label"></label>
+            </td>  
+        </tr>  
+        <tr> 
+            <td>  
+                <input asp-for="RegisterRequest.Email" class="form-control" />
+            </td> 
+            <td>  
+                <input asp-for="RegisterRequest.Username" class="form-control" />
+            </td>  
+            <td>  
+                <input asp-for="RegisterRequest.Password" class="form-control" type="password"/> 
+            </td>  
+        </tr>  
+        <tr>  
+            <td colspan="2">  
+                <input type="submit" />  
+            </td>  
+        </tr>
+        <tr>  
+            <td colspan="2">  
+                @if (@ViewBag.Errors != null)  
+                {  
+                    <div style="border: 1px solid red">  
+                        @ViewBag.Errors  
+                    </div>  
+                } 
+            </td>  
+        </tr>  
+    </table>  
+</form>

@@ -1,3 +1,17 @@
-﻿@{
+﻿@using System.Text
+
+@{
     Layout = "_Layout";
+}
+
+@{
+    string Username = null;
+    int UserId = 0;
+    if(Context.Session.TryGetValue("Username", out var UsernameBytes))
+        Username = Encoding.Default.GetString(UsernameBytes);
+    if(Context.Session.TryGetValue("UserID", out var UserIdBytes))
+        int.TryParse(Encoding.Default.GetString(UserIdBytes), out UserId);
+    ViewData["IsAuthorized"] = (!String.IsNullOrEmpty(Username)) && (UserId != 0);
+    ViewData["Username"] = Username;
+    ViewData["UserID"] = UserId;
 }

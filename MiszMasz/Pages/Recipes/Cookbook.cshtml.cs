@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MiszMasz.Entities;
+using MiszMasz.Pages.Shared;
 
 namespace MiszMasz.Pages.Recipes
 {
-    public class IndexModel : PageModel
+    public class CookbookModel : AuthorizedPageModel
     {
         private readonly MiszMasz.MiszMaszDbContext _context;
 
-        public IndexModel(MiszMasz.MiszMaszDbContext context) : base()
+        public CookbookModel(MiszMasz.MiszMaszDbContext context) : base()
         {
             _context = context;
         }
@@ -23,8 +24,16 @@ namespace MiszMasz.Pages.Recipes
 
         public async Task OnGetAsync(string Search, string OrderBy)
         {
-             var recipes = await _context.Recipes
-                .Include(r => r.Author).ToListAsync();
+            var userId = Authorize();
+            var cockbook = await _context.Cockbooks
+                .Where(c => c.UserId == userId)
+                .Include(c => c.Recipe)
+                .ThenInclude(r => r.Author)
+                .ToListAsync();
+
+            var recipes = cockbook
+                .Select(c => c.Recipe)
+                .ToList();
 
             if (!String.IsNullOrEmpty(Search))
                 recipes = recipes.Where(r => r.Name.Contains(Search, StringComparison.OrdinalIgnoreCase)).ToList();

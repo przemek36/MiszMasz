@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MiszMasz;
 using MiszMasz.Entities;
+using MiszMasz.Pages.Shared;
 
-namespace MiszMasz.Pages.test
+namespace MiszMasz.Pages.Recipes
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : AuthorizedPageModel
     {
         private readonly MiszMasz.MiszMaszDbContext _context;
 

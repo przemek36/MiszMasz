@@ -12,12 +12,20 @@
             <div class="logo"><img src="/img/unknown.png" alt="banner" height="100%"></div>
             <!-- toggle menu button -->
             <span class="menubtn" onclick="openNav()">&#9776;</span>
- 
+
             <div class="navLinks">
                 <ul>
-                    <li><a href="./">Strona główna</a></li>
+                    <li><a href="/">Strona główna</a></li>
                     <li><a href="/recipes">Przepisy</a></li>
-                </ul>
+                @if (!(bool) ViewData["IsAuthorized"])
+                {
+                    <li><a href="/authenticate/login">Zaloguj</a></li>
+                }
+                else
+                {
+                    <li><a href="/authenticate/logout">Wyloguj</a></li>
+                }
+            </ul>
             </div>
         </nav>
 
@@ -31,7 +39,7 @@
         </div>
         
         <div class="content">
-            @RenderBody()}
+            @RenderBody()
         </div>
 
         <footer class="border-top footer text-muted">

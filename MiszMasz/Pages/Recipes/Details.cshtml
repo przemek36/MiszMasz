@@ -1,5 +1,5 @@
 ﻿@page
-@model MiszMasz.Pages.test.DetailsModel
+@model MiszMasz.Pages.Recipes.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -8,15 +8,25 @@
 
 <h1>Details</h1>
 
+@if ((bool)ViewData["IsAuthorized"])
+{
+<div>
+    <form asp-page-handler="cookbook" method="post">
+        <input type="hidden" name="recipeId" value="@Model.Recipe.Id"/>
+        <input type="submit" />
+    </form>
+</div>
+}
+
 <div>
     <h4>Recipe</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Recipe.Author)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.Author.Id)
+            @Html.DisplayFor(model => model.Recipe.Author.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Recipe.Name)
@@ -39,6 +49,26 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Recipe.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
+</div>
+
+<div>
+    @if ((bool)ViewData["IsAuthorized"])
+    {
+    <div>
+        <form asp-page-handler="comment" method="post">
+            <input type="hidden" name="recipeId" value="@Model.Recipe.Id" />
+            <input type="text" name="comment" />
+            <input type="submit" />
+        </form>
+    </div>
+    }
+
+    @foreach (var item in Model.Recipe.Comments)
+    {
+    <div> 
+        <div> @item.Author.Name </div>
+        <div> @item.Text </div>
+    </div>
+    }
 </div>

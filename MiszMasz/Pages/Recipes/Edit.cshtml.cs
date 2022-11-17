@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MiszMasz;
 using MiszMasz.Entities;
 
-namespace MiszMasz.Pages.test
+namespace MiszMasz.Pages.Recipes
 {
     public class EditModel : PageModel
     {
@@ -37,7 +37,7 @@ namespace MiszMasz.Pages.test
             {
                 return NotFound();
             }
-           ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

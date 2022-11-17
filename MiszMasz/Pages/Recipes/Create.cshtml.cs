@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiszMasz;
 using MiszMasz.Entities;
+using MiszMasz.Helpers;
+using MiszMasz.Pages.Shared;
 
-namespace MiszMasz.Pages.test
+namespace MiszMasz.Pages.Recipes
 {
-    public class CreateModel : PageModel
+    public class CreateModel : AuthorizedPageModel
     {
         private readonly MiszMasz.MiszMaszDbContext _context;
 
@@ -21,7 +24,8 @@ namespace MiszMasz.Pages.test
 
         public IActionResult OnGet()
         {
-        ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
+            Authorize();
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Name");
             return Page();
         }
 
