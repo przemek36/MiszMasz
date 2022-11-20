@@ -3,40 +3,52 @@
 @{  
     ViewData["Title"] = "Register";  
 }  
-<form method="post"> 
+
+<form method="post" class="auth-form">
     <table>  
         <tr>  
             <td>
-                <label asp-for="RegisterRequest.Email" class="control-label"></label>
+                Email
             </td>
             <td>
-                <label asp-for="RegisterRequest.Username" class="control-label"></label>
-            </td>  
-            <td>
-                <label asp-for="RegisterRequest.Password" class="control-label"></label>
-            </td>  
+                <input asp-for="RegisterRequest.Email" class="form-control input" />
+            </td>
         </tr>  
         <tr> 
             <td>  
-                <input asp-for="RegisterRequest.Email" class="form-control" />
+                Login
             </td> 
             <td>  
-                <input asp-for="RegisterRequest.Username" class="form-control" />
+                <input asp-for="RegisterRequest.Username" class="form-control input" />
             </td>  
+            
+        </tr>
+        <tr> 
             <td>  
-                <input asp-for="RegisterRequest.Password" class="form-control" type="password"/> 
-            </td>  
-        </tr>  
+                Hasło
+            </td> 
+            <td>  
+                <input asp-for="RegisterRequest.Password" class="form-control input" type="password" />
+            </td>   
+        </tr> 
+        <tr> 
+            <td>  
+                Powtórz hasło
+            </td> 
+            <td>  
+                <input asp-for="RegisterRequest.RepeatPassword" class="form-control input" type="password"/>
+            </td>   
+        </tr> 
         <tr>  
             <td colspan="2">  
-                <input type="submit" />  
+                <input type="submit" class="button" value="Zarejestruj" />
             </td>  
         </tr>
         <tr>  
             <td colspan="2">  
                 @if (@ViewBag.Errors != null)  
                 {  
-                    <div style="border: 1px solid red">  
+                    <div class="errors">  
                         @ViewBag.Errors  
                     </div>  
                 } 
@@ -44,3 +56,5 @@
         </tr>  
     </table>  
 </form>
+
+<link rel="stylesheet" href="~/css/authenticate.css" />

@@ -32,7 +32,11 @@ namespace MiszMasz.Pages.Authenticate
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.Users.Where(u => u.Name.Equals(LoginRequest.Username) && u.Password.Equals(LoginRequest.Password)).FirstOrDefaultAsync();
+                var user = await _context
+                    .Users
+                    .Where(u => u.Name.Equals(LoginRequest.Username) && u.Password.Equals(LoginRequest.Password))
+                    .FirstOrDefaultAsync();
+
                 if (user != null)
                 {
                     HttpContext.Session.Set("UserID", Encoding.ASCII.GetBytes(user.Id.ToString()));

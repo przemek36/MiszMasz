@@ -18,28 +18,29 @@ namespace MiszMasz
         public DbSet<Cockbook> Cockbooks { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>()
                 .HasOne(u => u.Role)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Recipe>()
                 .HasOne(r => r.Author)
                 .WithMany(a => a.Recipes)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RecipeIngredient>()
                 .HasOne(i => i.Recipe)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .WithMany(r => r.Ingredients)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RecipeIngredient>()
                 .HasOne(i => i.Ingredient)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RecipeIngredient>()
                 .HasKey(i => new { i.RecipeId, i.IngredientId });
@@ -47,25 +48,38 @@ namespace MiszMasz
             builder.Entity<Comment>()
                 .HasOne(c => c.Author)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Comment>()
                 .HasOne(c => c.Recipe)
                 .WithMany(r => r.Comments)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Cockbook>()
                 .HasOne(c => c.Recipe)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Cockbook>()
                 .HasOne(c => c.User)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Cockbook>()
                 .HasKey(c => new { c.RecipeId, c.UserId });
+
+            builder.Entity<Like>()
+                .HasKey(c => new { c.RecipeId, c.UserId });
+
+            builder.Entity<Like>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Like>()
+                .HasOne(l => l.Recipe)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
         }

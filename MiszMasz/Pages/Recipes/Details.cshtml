@@ -10,10 +10,20 @@
 
 @if ((bool)ViewData["IsAuthorized"])
 {
-<div>
+<div class="approve-forms">
     <form asp-page-handler="cookbook" method="post">
         <input type="hidden" name="recipeId" value="@Model.Recipe.Id"/>
-        <input type="submit" />
+        <span>Dodaj do książki kucharskiej: </span>
+        <button type="submit">
+                <img src="@((bool)ViewData["IsAdded"] ? "~/img/add_2.png": "~/img/add_1.png")" />
+        </button>
+    </form>
+    <form asp-page-handler="likes" method="post">
+        <input type="hidden" name="recipeId" value="@Model.Recipe.Id" />
+        <span>Polubienie: </span>
+        <button type="submit">
+                <img src="@((bool)ViewData["IsLiked"] ? "~/img/like_2.png": "~/img/like_1.png")" />
+        </button>
     </form>
 </div>
 }
@@ -66,7 +76,7 @@
 
     @foreach (var item in Model.Recipe.Comments)
     {
-    <div> 
+    <div style="bakckground-color:white"> 
         <div> @item.Author.Name </div>
         <div> @item.Text </div>
     </div>

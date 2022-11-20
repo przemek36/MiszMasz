@@ -2,44 +2,48 @@
 @model MiszMasz.Pages.Authenticate.LoginModel
 @{  
     ViewBag.Title = "Login";  
-}  
-  
-<form method="post"> 
+}
+
+<form method="post" class="auth-form"> 
     <table>  
         <tr>  
-            <td><label asp-for="LoginRequest.Username" class="control-label"></label></td>  
-            <td><label asp-for="LoginRequest.Password" class="control-label"></label></td>  
-        </tr>  
-        <tr>  
-            <td>  
-                <input asp-for="LoginRequest.Username" class="form-control" />
+            <td>
+                Login
             </td>  
-            <td>  
-                <input asp-for="LoginRequest.Password" class="form-control" TextMode="Password" /> 
+            <td>
+                <input asp-for="LoginRequest.Username" class="form-control input" />
             </td>  
         </tr>  
         <tr>  
+            <td>  
+                Hasło
+            </td>  
+            <td>  
+                <input asp-for="LoginRequest.Password" class="form-control input" type="password" />
+            </td>  
+        </tr>  
+        <tr>
             <td colspan="2">  
-                <input type="submit" />  
+                <input type="submit" class="button" value="Zaloguj" />
             </td>  
         </tr>
         <tr>  
             <td colspan="2">  
                 @if (@ViewBag.Errors != null)  
                 {  
-                    <div style="border: 1px solid red">  
+                    <div class="errors">  
                         @ViewBag.Errors  
                     </div>  
                 } 
             </td>  
         </tr>  
-        <tr>  
-            <td>  
-               Nie posiadasz konta? 
-            </td>  
-            <td>  
+        <tr>
+            <td colspan="2">
+                Nie posiadasz konta?  
                 <a asp-page="/Authenticate/Register">Zarejestruj</a>
             </td>  
         </tr> 
     </table>  
 </form>
+
+<link rel="stylesheet" href="~/css/authenticate.css" />

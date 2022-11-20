@@ -1,0 +1,15 @@
+﻿.auth-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    border: solid 2px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+
+.auth-form table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+}

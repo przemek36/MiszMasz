@@ -5,77 +5,31 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<div>
-    <form method="get">
-        <div>
-            <input type="text" name="search" value="@HttpContext.Request.Query["search"]" />
-        </div>
-        <div>
-            @{ var orderBy = @HttpContext.Request.Query["orderBy"]; }
-            <select name="orderBy" value="@orderBy">
-                <optgroup label="Polubienia">
-                    <option value="LikesDesc" selected="@(orderBy=="LikesDesc")">Polubienia - Malejąco</option>
-                    <option value="LikesAsc" selected="@(orderBy=="LikesAsc")">Polubienia - Rosnąco</option>
-                </optgroup>
-                <optgroup label="Nazwa">
-                    <option value="NameDesc" selected="@(orderBy=="NameDesc")">Nazwa - Malejąco</option>
-                    <option value="NameAsc" selected="@(orderBy=="NameAsc")">Nazwa - Rosnąco</option>
-                </optgroup>
-                <optgroup label="Autor">
-                    <option value="AuthorDesc" selected="@(orderBy=="AuthorDesc")">Autor - Malejąco</option>
-                    <option value="AuthorAsc" selected="@(orderBy=="AuthorAsc")">Autor - Rosnąco</option>
-                </optgroup>
-            </select>
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" />
-        </div>
-    </form>
+<div class="create-recipe">
+    <a asp-page="Create">Nowy przepis</a>
 </div>
-<table class="table recipes">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Likes)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Recipe) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
+ 
+<div class="recipes">
+    @foreach (var item in Model.Recipe)
+    {
+        <div class="recipe">
+            <div class="recipe-title">
+                <a asp-page="./Details" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </div>
+            <div class="recipe-author">
+                Autor: @Html.DisplayFor(modelItem => item.Author.Name)
+            </div>
+            <div class="recipe-description">
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
+            </div>
+            <div class="recipe-like">
+                <img src="~/img/like_2.png">
                 @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> 
-                <span> | </span>
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>  
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+            </div>
+        </div>
+    }
+</div>
 
 <link rel="stylesheet" href="~/css/recipes.css" />

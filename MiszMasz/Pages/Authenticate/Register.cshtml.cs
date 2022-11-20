@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MiszMasz.Entities;
@@ -28,33 +28,39 @@ namespace MiszMasz.Pages.Authenticate
         {
             if (ModelState.IsValid)
             {
+                if (await _context.Users.AnyAsync(u => u.Name.Equals(RegisterRequest.Username)))
+                {
+                    ViewData["Errors"] = "Login jest juz zajęty";
+                    return Page();
+                }
+                if(await _context.Users.AnyAsync(u => u.Email.Equals(RegisterRequest.Username)))
+                {
+                    ViewData["Errors"] = "Email jest juz zajęty";
+                    return Page();
+                }
+                if (RegisterRequest.Password == RegisterRequest.RepeatPassword)
+                {
+                    ViewData["Errors"] = "Hasła nie są takie same";
+                    return Page();
+                }
                 if (RegisterRequest.Password.Length < 5)
                 {
-                    ViewData["Errors"] = "Password is too short";
+                    ViewData["Errors"] = "Hasło jest za krótkie";
                     return Page();
                 }
 
-                var user = await _context.Users.Where(u => u.Name.Equals(RegisterRequest.Username)).FirstOrDefaultAsync();
-                if (user == null)
+                var newUser = new User
                 {
-                    var newUser = new User
-                    {
-                        Email = RegisterRequest.Email,
-                        Name = RegisterRequest.Username,
-                        Password = RegisterRequest.Password,
-                        RoleId = 1,
-                    };
+                    Email = RegisterRequest.Email,
+                    Name = RegisterRequest.Username,
+                    Password = RegisterRequest.Password,
+                    RoleId = 1
+                };
 
-                    _context.Users.Add(newUser);
-                    _context.SaveChanges();
-                    return Redirect("Login");
-                }
-                else
-                {
-                    ViewData["Errors"] = "User already exists";
-                    return Page();
-                }
-            }            
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+                return Redirect("Login");
+            }         
             return Page();
         }
     }

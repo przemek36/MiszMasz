@@ -9,7 +9,12 @@
     </head>
     <body>
         <nav>
-            <div class="logo"><img src="/img/unknown.png" alt="banner" height="100%"></div>
+            <div class="logo"> 
+                <a href="/">
+                    <img src="/img/unknown.png" alt="banner" height="100%">
+                </a>
+            </div>
+            
             <!-- toggle menu button -->
             <span class="menubtn" onclick="openNav()">&#9776;</span>
 
@@ -23,6 +28,8 @@
                 }
                 else
                 {
+                    <li><a href="/recipes/MyRecipes">Moje Przepisy</a></li>
+                    <li><a href="/recipes/Cookbook">Książka kucharska</a></li>
                     <li><a href="/authenticate/logout">Wyloguj</a></li>
                 }
             </ul>
@@ -43,9 +50,7 @@
         </div>
 
         <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2022 - MiszMAsz - <a asp-area="" asp-page="/Privacy">Privacy</a>
-            </div>
+            &copy; 2022 - MiszMAsz
         </footer>
 
         <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiszMasz;
 
@@ -10,9 +11,10 @@ using MiszMasz;
 namespace MiszMasz.Migrations
 {
     [DbContext(typeof(MiszMaszDbContext))]
-    partial class MiszMaszDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221117121838_relation")]
+    partial class relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,21 +80,6 @@ namespace MiszMasz.Migrations
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("MiszMasz.Entities.Like", b =>
-                {
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecipeId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
-                });
-
             modelBuilder.Entity("MiszMasz.Entities.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -126,6 +113,9 @@ namespace MiszMasz.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.HasKey("RecipeId", "IngredientId");
@@ -183,13 +173,13 @@ namespace MiszMasz.Migrations
                     b.HasOne("MiszMasz.Entities.Recipe", "Recipe")
                         .WithMany()
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MiszMasz.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Recipe");
@@ -202,13 +192,13 @@ namespace MiszMasz.Migrations
                     b.HasOne("MiszMasz.Entities.User", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MiszMasz.Entities.Recipe", "Recipe")
                         .WithMany("Comments")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -216,31 +206,12 @@ namespace MiszMasz.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("MiszMasz.Entities.Like", b =>
-                {
-                    b.HasOne("MiszMasz.Entities.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MiszMasz.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MiszMasz.Entities.Recipe", b =>
                 {
                     b.HasOne("MiszMasz.Entities.User", "Author")
                         .WithMany("Recipes")
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -251,13 +222,13 @@ namespace MiszMasz.Migrations
                     b.HasOne("MiszMasz.Entities.Ingredient", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MiszMasz.Entities.Recipe", "Recipe")
                         .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Ingredient");
@@ -270,7 +241,7 @@ namespace MiszMasz.Migrations
                     b.HasOne("MiszMasz.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Role");

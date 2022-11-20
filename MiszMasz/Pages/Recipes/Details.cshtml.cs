@@ -17,6 +17,7 @@ namespace MiszMasz.Pages.Recipes
             _context = context;
         }
 
+        [BindProperty]
         public Recipe Recipe { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -28,6 +29,8 @@ namespace MiszMasz.Pages.Recipes
 
             Recipe = await _context.Recipes
                 .Include(r => r.Author)
+                .Include(r => r.Ingredients)
+                .ThenInclude(r => r.Ingredient)
                 .Include(r => r.Comments)
                 .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -41,11 +44,15 @@ namespace MiszMasz.Pages.Recipes
             {
                 var userId = Authorize();
                 ViewData["IsAdded"] = await GetCoockbook(userId, Recipe.Id) != null;
+                ViewData["IsLiked"] = await _context.Likes.AnyAsync(l => l.UserId == userId && l.RecipeId == id);
             }
-            catch { }
+            catch(Exception ex) {
+                var x = ex;
+            }
 
             return Page();
         }
+
         public async Task<IActionResult> OnPostComment([FromForm] int recipeId, [FromForm] string comment)
         {
             int userId = Authorize();
@@ -84,6 +91,22 @@ namespace MiszMasz.Pages.Recipes
                 _context.Cockbooks.Remove(cockbook);
             }
             _context.SaveChanges();
+            return Redirect($"/Recipes/Details?id={recipeId}");
+        }
+
+        public async Task<IActionResult> OnPostLike([FromForm] int recipeId)
+        {
+            int userId = Authorize();
+            var recipe = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+            if (recipe != null)
+                throw new Exception("Przepis nie istnieje.");
+
+            if(await _context.Likes.AnyAsync(l => l.UserId == userId && l.RecipeId == recipeId))
+            {
+                _context.Likes.Add(new Like { RecipeId = recipeId, UserId = userId });
+                recipe.Likes++;
+                _context.SaveChanges();
+            }
             return Redirect($"/Recipes/Details?id={recipeId}");
         }
 

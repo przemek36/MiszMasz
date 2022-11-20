@@ -1,4 +1,102 @@
-﻿
-.recipes{
-    background-color: white;
+﻿.recipes{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.recipe {
+    position: relative;
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    text-shadow: 0px 0px 3px black;
+    background-color: rgba(20, 100, 20, 0.8);
+    border: 3px solid;
+    height: 350px;
+    box-shadow: 5px 5px 15px black;
+}
+
+.recipe-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.recipe-title a {
+    text-shadow: 0px 0px 5px black;
+    color: rgba(200, 230, 150, 1);
+}
+
+.recipe-author {
+    border-bottom: 1px dashed;
+    padding-bottom: 5px;
+    margin-bottom:20px;
+}
+
+.recipe-description {
+    overflow:hidden;
+}
+
+.recipe-like {
+    position: absolute;
+    bottom: 10px;
+}
+
+.recipe-like img{
+    height: 30px;
+}
+
+.search-form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+    background-color: rgba(28, 150, 13, 0.9);
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+.search-form table{
+    width: 100%;
+}
+
+.search-phrase {
+    width: 70%;
+    padding: 10px;
+}
+
+.search-sort {
+    width: 20%;
+    padding: 10px;
+}
+
+.search-submit{
+    width: 10%;
+}
+
+.search-header {
+    color: white;
+    text-shadow: 0px 0px 5px black;
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.create-recipe {
+    margin: auto;
+    width: 300px;
+    background-color: rgba(20, 100, 20, 1);
+    border-radius: 30px 20px;
+    padding: 10px;
+    text-align: center;
+    border: 5px dashed white;
+}
+
+.create-recipe a{
+    text-decoration: none;
+    color: white;
+    font-size: 35px;
+}
+
+.approve-forms{
+    text-align: right;
 }
