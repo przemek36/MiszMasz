@@ -78,7 +78,7 @@ namespace MiszMasz.Pages.Recipes
 
             var cockbook = await GetCoockbook(userId, recipeId);
 
-            if (cockbook == default)
+            if (cockbook == null)
             {
                 _context.Cockbooks.Add(new Cockbook
                 {
@@ -98,13 +98,22 @@ namespace MiszMasz.Pages.Recipes
         {
             int userId = Authorize();
             var recipe = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-            if (recipe != null)
+            if (recipe == null)
                 throw new Exception("Przepis nie istnieje.");
 
-            if(await _context.Likes.AnyAsync(l => l.UserId == userId && l.RecipeId == recipeId))
+            var like = await _context.Likes.FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipeId);
+            if (like == null)
             {
                 _context.Likes.Add(new Like { RecipeId = recipeId, UserId = userId });
                 recipe.Likes++;
+                _context.Update(recipe);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Likes.Remove(like);
+                recipe.Likes--;
+                _context.Update(recipe);
                 _context.SaveChanges();
             }
             return Redirect($"/Recipes/Details?id={recipeId}");

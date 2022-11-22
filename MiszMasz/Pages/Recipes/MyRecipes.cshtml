@@ -24,6 +24,10 @@
             <div class="recipe-description">
                 @Html.DisplayFor(modelItem => item.Description)
             </div>
+            <div class="recipe-manage">
+                <a asp-page="./Edit" asp-route-id="@item.Id"> Edytuj </a>
+                <a asp-page="./Delete" asp-route-id="@item.Id"> Usuń </a>
+            </div>
             <div class="recipe-like">
                 <img src="~/img/like_2.png">
                 @Html.DisplayFor(modelItem => item.Likes)

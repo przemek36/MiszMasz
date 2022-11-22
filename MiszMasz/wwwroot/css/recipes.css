@@ -41,7 +41,19 @@
     bottom: 10px;
 }
 
-.recipe-like img{
+.recipe-manage {
+    right: 10px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.recipe-manage a{
+    color: white;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.recipe-like img {
     height: 30px;
 }
 
@@ -97,6 +109,139 @@
     font-size: 35px;
 }
 
-.approve-forms{
+.approve-forms img {
+    height: 50px;
+}
+
+.approve-forms button {
+    background: transparent;
+    border: none;
+}
+
+.comment{
+    background-color: white;
+    border-radius: 10px;
+    border: solid 3px gray;
+    color: black;
+    padding: 10px 20px;
+    margin: 5px;
+    width: 500px;
+    text-shadow: none;
+}
+
+.recipe-details {
+    width: 70%;
+    border-left: 5px dotted white;
+    border-right: 5px dotted white;
+    padding: 60px;
+    margin: auto;
+    text-shadow: black 3px 3px 3px;
+    background-color: rgba(20, 100, 20, 0.8);
+}
+
+.recipe-details-title{
+    font-size: 40px;
+}
+
+.recipe-details-author{
+    font-size: 20px;
+    color: lightgray;
+}
+
+.comment-input {
+    width: 490px;
+    margin-left: 10px;
+    padding: 5px;
+    height: 70px;
+    overflow: scroll;
+    border-radius: 10px;
+    border: solid 3px gray;
+    overflow: hidden;
+    display:block;
+}
+
+.comment-form{
+    width: 500px;
     text-align: right;
+    margin-bottom: 30px;
+}
+
+.comment-button {
+    height: 50px;
+    margin-top: 5px;
+    vertical-align: top;
+    width: 100px;
+    border-radius: 10px;
+    border: solid 3px gray;
+}
+
+.comments{
+    margin-left: 50px;
+}
+
+.comment-author{
+    border-bottom: solid 1px lightgray;
+    font-size: 18px;
+    color: gray;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recipe-details-description {
+    border-top: dashed 7px white;
+    margin-top: 40px;
+    padding: 30px;
+    min-height: 300px;
+}
+
+.recipe-create {
+    width: 70%;
+    border-left: 5px dotted white;
+    border-right: 5px dotted white;
+    padding: 60px;
+    margin: auto;
+    text-shadow: black 3px 3px 3px;
+    background-color: rgba(20, 100, 20, 0.8);
+}
+
+.recipe-create-submit{
+    text-align: left;
+}
+
+.recipe-create-submit .button{
+    margin: 20px;
+    display: inline-block;
+}
+
+.recipe-create-description{
+    min-height: 300px;
+}
+
+.recipe-create-submit a{
+    color: white;
+    text-decoration: none;
+}
+
+.delete-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    border: solid 2px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(50, 50, 50, 0.5);
+    margin-top: 150px;
+}
+
+.delete-form a{
+    margin: 15px;
+}
+
+.delete-form h1{
+    margin: 10px 0px;
+}
+
+.delete-form h3 {
+    margin-top: 20px;
+    margin-bottom: 30px;
 }

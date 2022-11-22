@@ -38,7 +38,7 @@ namespace MiszMasz.Pages.Authenticate
                     ViewData["Errors"] = "Email jest juz zajęty";
                     return Page();
                 }
-                if (RegisterRequest.Password == RegisterRequest.RepeatPassword)
+                if (RegisterRequest.Password != RegisterRequest.RepeatPassword)
                 {
                     ViewData["Errors"] = "Hasła nie są takie same";
                     return Page();

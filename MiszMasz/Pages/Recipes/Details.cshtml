@@ -6,79 +6,81 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="recipe-details">
 
-@if ((bool)ViewData["IsAuthorized"])
-{
-<div class="approve-forms">
-    <form asp-page-handler="cookbook" method="post">
-        <input type="hidden" name="recipeId" value="@Model.Recipe.Id"/>
-        <span>Dodaj do książki kucharskiej: </span>
-        <button type="submit">
-                <img src="@((bool)ViewData["IsAdded"] ? "~/img/add_2.png": "~/img/add_1.png")" />
-        </button>
-    </form>
-    <form asp-page-handler="likes" method="post">
-        <input type="hidden" name="recipeId" value="@Model.Recipe.Id" />
-        <span>Polubienie: </span>
-        <button type="submit">
-                <img src="@((bool)ViewData["IsLiked"] ? "~/img/like_2.png": "~/img/like_1.png")" />
-        </button>
-    </form>
-</div>
-}
-
-<div>
-    <h4>Recipe</h4>
-    <hr/>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recipe.Author)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.Author.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recipe.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recipe.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recipe.Likes)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.Likes)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
-<div>
+    <h1 class="recipe-details-title">
+        @Html.DisplayFor(model => model.Recipe.Name)
+    </h1>
+    <h2 class="recipe-details-author">
+        Autor: @Html.DisplayFor(model => model.Recipe.Author.Name)
+    </h2>
     @if ((bool)ViewData["IsAuthorized"])
     {
-    <div>
-        <form asp-page-handler="comment" method="post">
+    <div class="approve-forms">
+        <form asp-page-handler="like" method="post">
             <input type="hidden" name="recipeId" value="@Model.Recipe.Id" />
-            <input type="text" name="comment" />
-            <input type="submit" />
+            <button type="submit">
+                @if ((bool)ViewData["IsLiked"])
+                {
+                    <img src="~/img/like_2.png" />
+                }
+                else
+                {
+                    <img src="~/img/like_1.png" />
+                }
+            </button>
+            <span>@Html.DisplayFor(model => model.Recipe.Likes) </span>
+        </form>
+        <form asp-page-handler="cookbook" method="post">
+            <input type="hidden" name="recipeId" value="@Model.Recipe.Id" />
+            <button type="submit">
+                @if ((bool)ViewData["IsAdded"])
+                {
+                    <img src="~/img/add_2.png" />
+                }
+                else
+                {
+                    <img src="~/img/add_1.png" />
+                }
+            </button>
+            <span>Dodaj do książki kucharskiej </span>
         </form>
     </div>
     }
-
-    @foreach (var item in Model.Recipe.Comments)
+    else
     {
-    <div style="bakckground-color:white"> 
-        <div> @item.Author.Name </div>
-        <div> @item.Text </div>
+    <div class="approve-forms">
+        <img src="~/img/like_2.png" />
+        <span>@Html.DisplayFor(model => model.Recipe.Likes) </span>
     </div>
     }
+    <div class="recipe-details-description">
+        <h2>Opis</h2>
+        @Html.DisplayFor(model => model.Recipe.Description)
+    </div>
+    <div class="comments">
+        <h2>Komentarze: </h2>
+        @if ((bool)ViewData["IsAuthorized"])
+        {
+        <div>
+            <form asp-page-handler="comment" class="comment-form" method="post">
+                <input type="hidden" name="recipeId" value="@Model.Recipe.Id"  />
+                <textarea type="text" name="comment" class="comment-input" ></textarea>
+                <input type="submit" class="comment-button" />
+            </form>
+        </div>
+        }
+        <div>
+            @foreach (var item in Model.Recipe.Comments)
+            {
+                <div class="comment">
+                    <div class="comment-author"> @item.Author.Name </div>
+                    <div> @item.Text </div>
+                </div>
+            }
+        </div>
+    </div>
+
 </div>
+
+<link rel="stylesheet" href="~/css/recipes.css" />

@@ -39,11 +39,13 @@ namespace MiszMasz.Pages.Recipes
             {
                 return Page();
             }
-
+            var authorId = Authorize();
+            Recipe.AuthorId = authorId;
+            Recipe.Likes = 0;
             _context.Recipes.Add(Recipe);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./MyRecipes");
         }
     }
 }

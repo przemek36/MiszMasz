@@ -6,40 +6,30 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Recipe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Recipe.Id" />
-            <div class="form-group">
-                <label asp-for="Recipe.AuthorId" class="control-label"></label>
-                <select asp-for="Recipe.AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
-                <span asp-validation-for="Recipe.AuthorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.Name" class="control-label"></label>
-                <input asp-for="Recipe.Name" class="form-control"/>
-                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.Description" class="control-label"></label>
-                <input asp-for="Recipe.Description" class="form-control" />
-                <span asp-validation-for="Recipe.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="recipe-create">
+    <center><h1>Edytuj przepis</h1></center>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Recipe.Id" />
+        <input type="hidden" asp-for="Recipe.AuthorId" class="form-control" asp-items="ViewBag.AuthorId"/>
+        <div class="form-group">
+            <h3>Nazwa: </h3>
+            <input asp-for="Recipe.Name" class="form-control" />
+            <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <h3>Opis: </h3>
+            <textarea asp-for="Recipe.Description" class="form-control recipe-create-description"></textarea>
+            <span asp-validation-for="Recipe.Description" class="text-danger"></span>
+        </div>
+        <div class="recipe-create-submit">
+            <input type="submit" value="Edytuj" class="button" />
+            <a asp-page="MyRecipes">Anuluj</a>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+<link rel="stylesheet" href="~/css/recipes.css" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
