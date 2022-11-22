@@ -14,9 +14,7 @@ namespace MiszMasz
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<Cockbook> Cockbooks { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Like> Likes { get; set; }
 
@@ -31,19 +29,6 @@ namespace MiszMasz
                 .HasOne(r => r.Author)
                 .WithMany(a => a.Recipes)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<RecipeIngredient>()
-                .HasOne(i => i.Recipe)
-                .WithMany(r => r.Ingredients)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<RecipeIngredient>()
-                .HasOne(i => i.Ingredient)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<RecipeIngredient>()
-                .HasKey(i => new { i.RecipeId, i.IngredientId });
 
             builder.Entity<Comment>()
                 .HasOne(c => c.Author)

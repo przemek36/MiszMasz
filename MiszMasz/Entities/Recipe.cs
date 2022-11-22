@@ -10,7 +10,6 @@ namespace MiszMasz.Entities
         public User Author { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
-        public ICollection<RecipeIngredient> Ingredients { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

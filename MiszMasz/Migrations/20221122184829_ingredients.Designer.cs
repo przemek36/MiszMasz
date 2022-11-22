@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiszMasz;
 
@@ -10,9 +11,10 @@ using MiszMasz;
 namespace MiszMasz.Migrations
 {
     [DbContext(typeof(MiszMaszDbContext))]
-    partial class MiszMaszDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221122184829_ingredients")]
+    partial class ingredients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

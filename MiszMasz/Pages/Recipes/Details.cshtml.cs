@@ -29,8 +29,6 @@ namespace MiszMasz.Pages.Recipes
 
             Recipe = await _context.Recipes
                 .Include(r => r.Author)
-                .Include(r => r.Ingredients)
-                .ThenInclude(r => r.Ingredient)
                 .Include(r => r.Comments)
                 .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);

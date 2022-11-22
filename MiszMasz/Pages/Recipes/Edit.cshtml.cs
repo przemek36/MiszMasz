@@ -22,8 +22,6 @@ namespace MiszMasz.Pages.Recipes
 
         [BindProperty]
         public Recipe Recipe { get; set; }
-        [BindProperty]
-        public IEnumerable<Ingredient> Ingredients { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,21 +33,14 @@ namespace MiszMasz.Pages.Recipes
             Recipe = await _context
                 .Recipes
                 .Include(r => r.Author)
-                .Include(r => r.Ingredients)
-                .ThenInclude(i => i.Ingredient)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            Ingredients = Recipe
-                .Ingredients
-                .Select(i => i.Ingredient)
-                .ToList();
 
             if (Recipe == null)
             {
                 return NotFound();
             }
 
-            ViewData["Ingredients"] = new MultiSelectList(_context.Ingredients, "Id", "Name");
             ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Name");
 
             return Page();
@@ -63,14 +54,6 @@ namespace MiszMasz.Pages.Recipes
             {
                 return Page();
             }
-
-            var RecipeIngredients = Ingredients.Select(i => new RecipeIngredient
-            {
-                IngredientId = i.Id,
-                RecipeId = Recipe.Id
-            }).ToList();
-
-            Recipe.Ingredients = RecipeIngredients;
 
             _context.Attach(Recipe).State = EntityState.Modified;
 
