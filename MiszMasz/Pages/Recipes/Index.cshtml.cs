@@ -37,10 +37,10 @@ namespace MiszMasz.Pages.Recipes
                 case "likesasc":
                     recipes = recipes.OrderBy(r => r.Likes).ToList();
                     break;
-                case "namesdesc":
+                case "namedesc":
                     recipes = recipes.OrderByDescending(r => r.Name).ToList();
                     break;
-                case "namesasc":
+                case "nameasc":
                     recipes = recipes.OrderBy(r => r.Name).ToList();
                     break;
                 case "authordesc":

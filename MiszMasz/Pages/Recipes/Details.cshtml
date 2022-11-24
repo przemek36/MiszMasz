@@ -43,7 +43,7 @@
                     <img src="~/img/add_1.png" />
                 }
             </button>
-            <span>Dodaj do książki kucharskiej </span>
+            <span>Książka kucharska </span>
         </form>
     </div>
     }
@@ -66,7 +66,7 @@
             <form asp-page-handler="comment" class="comment-form" method="post">
                 <input type="hidden" name="recipeId" value="@Model.Recipe.Id"  />
                 <textarea type="text" name="comment" class="comment-input" ></textarea>
-                <input type="submit" class="comment-button" />
+                <input type="submit" class="comment-button" value="Komentuj" />
             </form>
         </div>
         }
